@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Upload, Download } from "lucide-react";
+import { Upload, Download, FileSpreadsheet } from "lucide-react";
 import { toast } from "sonner";
 
 interface CsvUploadProps {
@@ -30,10 +30,7 @@ const CsvUpload = ({ templateHeaders, templateFilename, onUpload }: CsvUploadPro
     const reader = new FileReader();
     reader.onload = (event) => {
       const text = event.target?.result as string;
-      const rows = text
-        .trim()
-        .split("\n")
-        .map((row) => row.split(",").map((cell) => cell.trim()));
+      const rows = text.trim().split("\n").map((row) => row.split(",").map((cell) => cell.trim()));
       onUpload(rows);
       toast.success(`Imported ${rows.length - 1} rows from CSV`);
     };
@@ -42,22 +39,18 @@ const CsvUpload = ({ templateHeaders, templateFilename, onUpload }: CsvUploadPro
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <Button variant="outline" size="sm" onClick={handleDownloadTemplate}>
-        <Download className="mr-1.5 h-3.5 w-3.5" />
+    <div className="flex flex-wrap items-center gap-2 rounded-xl border-2 border-dashed bg-muted/30 p-4">
+      <FileSpreadsheet className="h-5 w-5 text-muted-foreground" />
+      <span className="mr-auto text-sm text-muted-foreground">Import data via CSV</span>
+      <Button variant="outline" size="sm" onClick={handleDownloadTemplate} className="gap-1.5">
+        <Download className="h-3.5 w-3.5" />
         Download Template
       </Button>
-      <Button variant="outline" size="sm" onClick={() => inputRef.current?.click()}>
-        <Upload className="mr-1.5 h-3.5 w-3.5" />
+      <Button size="sm" onClick={() => inputRef.current?.click()} className="gap-1.5 gradient-hero border-0 text-primary-foreground">
+        <Upload className="h-3.5 w-3.5" />
         Import CSV
       </Button>
-      <input
-        ref={inputRef}
-        type="file"
-        accept=".csv"
-        className="hidden"
-        onChange={handleFileChange}
-      />
+      <input ref={inputRef} type="file" accept=".csv" className="hidden" onChange={handleFileChange} />
     </div>
   );
 };
