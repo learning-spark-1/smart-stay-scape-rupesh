@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Holidays from "./pages/Holidays";
@@ -22,16 +23,21 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/holidays" element={<Holidays />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/layout" element={<LayoutPage />} />
-            <Route path="/amenities" element={<Amenities />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div className="flex min-h-screen flex-col">
+            <Navbar />
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/holidays" element={<Holidays />} />
+                <Route path="/menu" element={<Menu />} />
+                <Route path="/layout" element={<LayoutPage />} />
+                <Route path="/amenities" element={<Amenities />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
         </BrowserRouter>
       </AuthProvider>
     </TooltipProvider>

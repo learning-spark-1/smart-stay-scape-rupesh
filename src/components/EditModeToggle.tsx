@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -14,8 +15,8 @@ const EditModeToggle = ({ editMode, onToggle }: EditModeToggleProps) => {
   if (role !== "admin") return null;
 
   return (
-    <div className="flex items-center gap-2 rounded-lg border bg-card px-4 py-2 shadow-sm">
-      <Pencil className="h-4 w-4 text-muted-foreground" />
+    <div className={`flex items-center gap-2.5 rounded-xl border px-4 py-2.5 shadow-card transition-all duration-200 ${editMode ? 'bg-primary/5 border-primary/30' : 'bg-card'}`}>
+      <Pencil className={`h-4 w-4 transition-colors ${editMode ? 'text-primary' : 'text-muted-foreground'}`} />
       <Label htmlFor="edit-mode" className="cursor-pointer text-sm font-medium">
         Edit Mode
       </Label>
